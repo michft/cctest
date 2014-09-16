@@ -1,2 +1,33 @@
-(function($){var $nav_float=$('#nav_flow').clone().attr('id','nav_float').appendTo('#outer');var floating=false;$(window).bind('load resize scroll',function(){var header_height=$('#header').height();var top=$(this).scrollTop();if(top>header_height){if(!floating){$nav_float.show();$('#nav_flow').css('visibility','hidden');floating=true;}}else{if(floating){$nav_float.hide();$('#nav_flow').css('visibility','visible');floating=false;}}});$('#outer > .right_bar, #outer > .left_bar').addClass('display');})(jQuery);if(document.location.href.match(/^https?:\/\/([^\/]+\.)*exim\.org\//)){$('#branding').remove();}else{$('#branding').ready(function(){try{var doc=$('#branding')[0].contentWindow.document;if(doc.title.match(/\b(found|404)\b/i)){$('#branding').remove();}else{$(doc).find('a').each(function(){if($(this).attr('title')=='')$(this).attr('title','Sponsor of this mirror');$(this).css('opacity',0.8).mouseover(function(){$(this).css('opacity',1)}).mouseout(function(){$(this).css('opacity',0.8)});});$('#branding').height($(doc).find('img').height()?$(doc).find('img').height()+16+'px':'auto').hide().css('visibility','visible').fadeIn(2000);}}catch(e){$('#branding').remove();}});}
-(function(){$('#footer').hide();setTimeout(function(){$('#footer').fadeIn('slow')},2000);})();(function(){if(!('placeholder' in document.createElement('input')))$('.nav li.search input.search_field').focus(function(e){if($(this).val()===' '+$(this).attr('placeholder'))$(this).val('').css('color','#000');}).blur(function(e){if($(this).val()===' '+$(this).attr('placeholder')||$(this).val()==='')$(this).css('color','#666').val(' '+$(this).attr('placeholder'));}).blur();if(document.body.style.MozBorderRadius!==undefined)$('.search_field_container').addClass('roundit').click(function(){$(this).find('input').focus()});})();(function($){var jump=function(id){if($('#'+id).length==0)return false;document.location.href=document.location.href.replace(/#.+/,'')+'#'+id;$('html,body').animate({scrollTop:$('#'+id).position()['top']-$('.nav').height()-5},100);return true;};var uri=document.location.pathname;var uri_end=uri.replace(/^.*\//,'');if(document.location.href.match(/#./))jump(document.location.href.replace(/^.*#(.+)$/,'$1'));$('a').live('click',function(e){var href=$(this).attr('href');if(!href.match(/^.*#.+$/))return true;var href_uri=href.replace(/^([^#]*)(#.*)?/,'$1');if(href_uri.match(/^([a-z]+:)?\/\//))return true;if(href_uri.match(/^[^\/]/)&&href_uri!=uri_end)return true;if(href_uri.match(/^\//)&&href_uri!=uri)return true;if(jump(href.replace(/^.*#(.+)$/,'$1')))e.preventDefault();});$(window).bind('hashchange',function(e){if(jump(document.location.href.replace(/^.*#(.+)$/,'$1')))e.preventDefault();});})(jQuery);
+function mychange(amount) {
+    // Need to Move Green / Red3
+    // If over 100% keep text and leave 100% RED.
+    // need to change text.
+
+    var select_bars = document.getElementById('select_bars').value;
+    var select_text = select_bars + "text";
+    var bar_value = document.getElementById(select_text).innerHTML;
+
+
+    bar_value = bar_value.substring(0, bar_value.length - 2);
+    bar_number = Number(bar_value) + amount;
+
+
+    if (bar_number <= 0) {
+        document.getElementById(select_bars).style.width='0%';
+        document.getElementById(select_text).style.width='100%';
+        document.getElementById(select_text).innerHTML='0 %';
+        document.getElementById(select_bars).style.background='#00cc00'
+    } else if (bar_number <= 95) {
+        bar_off =  100 / bar_number * 100;
+        alert (bar_off);
+        document.getElementById(select_bars).style.width=bar_number +'%';
+        document.getElementById(select_text).style.width='100%';
+        document.getElementById(select_text).innerHTML=bar_number +' %';
+        document.getElementById(select_bars).style.background='#00cc00'
+    } else {
+        document.getElementById(select_bars).style.width='100%';
+        document.getElementById(select_text).style.width='100%';
+        document.getElementById(select_text).innerHTML=bar_number +' %';
+        document.getElementById(select_bars).style.background='#cc0000'
+    } // */
+}
